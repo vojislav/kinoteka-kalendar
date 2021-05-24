@@ -1,0 +1,37 @@
+ul li {
+	display:inline;
+}
+
+body{
+	text-align: center;
+}
+
+table {
+	display: inline-block;
+	border-collapse: collapse;
+	text-align: left;
+	width: max-content;
+}
+
+select.absPos {
+	display: inline-block;
+	position: absolute;
+	margin:15px;
+}
+
+table th, td {
+	padding: 5px;
+	border: 1px solid black;
+}
+
+td {
+	background-color: white;
+}
+
+td.uzun{
+	background-color: rgb(2,123,118, 0.3);
+}
+
+td.kosovska{
+	background-color: rgb(156,56,41, 0.3);
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/static/style.css" />
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+    <title>Kinoteka Kalendar</title>
+</head>
+<body>
+	<h1>Kinoteka Kalendar</h1>
+	<select onchange="location = this.value;">
+		<option hidden disabled selected value>Izaberi mesec</option>
+		{% for month in months%}
+		<option value="/{{ month[1] }}">{{ month[0] }}</option>
+		{% endfor %}
+	</select>
+</body>
+</html>
