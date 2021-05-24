@@ -1,10 +1,7 @@
 # kinoteka_kalendar
-parser for the Yugoslav film archive monthy program, data from danubeogradu.rs
+parser for the [Yugoslav film archive](http://www.kinoteka.org.rs/) monthly program, data from [danubeogradu.rs](https://danubeogradu.rs)
 
-still in it's demo phase. the current plan is to make a Flask webpage to show the screenings and host it on my website.
-
-it currently takes a link (for example, https://www.danubeogradu.rs/2021/04/kinoteka-repertoari-za-maj-2021/) as a command line argument
-and prints a table of the film screenings.
+the app is now live on my website at [kinoteka.lazic.xyz](https://kinoteka.lazic.xyz)
 
 i have tested it for all the screenings from this year including may (the ones from before then are in a different format).
 
