@@ -1,4 +1,4 @@
-# kinoteka_kalendar
+# kinoteka kalendar
 parser for the [Yugoslav film archive](http://www.kinoteka.org.rs/) monthly program, data from [danubeogradu.rs](https://danubeogradu.rs)
 
 the app is now live on my website at [kinoteka.lazic.xyz](https://kinoteka.lazic.xyz)
