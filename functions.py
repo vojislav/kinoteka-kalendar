@@ -46,7 +46,7 @@ def compare(film1, film2):
 
 def getKinotekaFile(url):
     kinotekaFile = re.sub('https:.*?\/[0-9]+\/[0-9]+\/', '', url)
-    kinotekaFile = re.sub('repertoari-za-', '', kinotekaFile)
+    kinotekaFile = re.sub('repertoar[i]?-za-', '', kinotekaFile)
     kinotekaFile = kinotekaFile.replace('/', '')
 
     return "kinotekafiles/" + kinotekaFile + (".html")
@@ -75,7 +75,7 @@ def getData(url, kinotekaFile):
     serbDirectorReg = re.compile('(?<=Režija: ).*?(?=,|$)')
     serbDirectorReg2 = re.compile('(?<=Režija: ).*(?=,?)')
     # bukvalno jedan lik samo nece da radi sa ovim prvim regexom
-    # ubi me ako znam sta je
+    # da me ubijes ne znam sta je
     # Pavle Pavlovic u reziji Mladomira Purise Djordjevica for future reference
     forDirectorReg = re.compile('(?<=\().*(?=\))')
 
@@ -110,6 +110,7 @@ def getData(url, kinotekaFile):
 
     for p in soup.find_all(['p', 'h2']):
         text = p.get_text().replace("…","")
+        #print(text)
 
         if (uzunReg.search(text) != None):
             location = "Uzun Mirkova"
@@ -125,7 +126,7 @@ def getData(url, kinotekaFile):
             month = monthReg.search(dateMatch.group()).group()
             monthNum = months[month.lower()]
             year = yearReg.search(dateMatch.group()).group()
-            newDate = Date(day, dateNum, month, monthNum, year)
+            newDate = Date(day, int(dateNum), month, int(monthNum), year)
             monthAndDate = str(monthNum) + " " + dateNum
             if (dates.get(monthAndDate) == None):
                 dates[monthAndDate] = newDate
@@ -143,7 +144,8 @@ def getData(url, kinotekaFile):
             releaseYear = releaseYearReg.search(parantheses).group()
 
             originalTitle = originalTitleReg.search(text)
-            if (originalTitle != None and rolesReg.search(originalTitle.group()) == None):
+
+            if (originalTitle != None and rolesReg.search(originalTitle.group()) == None and serbDirectorReg.search(originalTitle.group()) == None):
                 title = originalTitle.group()
 
             roles = rolesReg.search(text)
@@ -168,11 +170,14 @@ def getData(url, kinotekaFile):
     #    for film in date.films:
     #        print("%s - %s (%s) - %s\nUloge: %s\nRezija: %s" % (film.time, film.title, film.releaseYear, film.location, film.roles, film.director))
 
+    sortedDates = sorted(dates.items(), key=lambda x : x[1].dateNum);
+
     table = [['Datum', 'Vreme', 'Naslov', 'Lokacija']]
-    for date in dates.values():
+    for datePair in sortedDates:
+        date = datePair[1]
         date.films.sort(key = lambda film: datetime.strptime(film.time, '%H:%M'))
         row = []
-        row.append(date.day + ", " + date.dateNum + ". " + date.month)
+        row.append(date.day + ", " + str(date.dateNum) + ". " + date.month)
         #dateAdded = 0
         for film in date.films:
             #if (dateAdded == 1):
@@ -187,7 +192,7 @@ def getData(url, kinotekaFile):
 
     return table
 
-#url = "https://www.danubeogradu.rs/2021/04/kinoteka-repertoari-za-maj-2021/"
+#url = "https://www.danubeogradu.rs/2021/05/kinoteka-repertoari-za-jun-2021/"
 #kinotekaFile = getKinotekaFile(url)
 #table = getData(url, kinotekaFile)
 #print(tabulate(table, headers='firstrow', tablefmt='grid'))

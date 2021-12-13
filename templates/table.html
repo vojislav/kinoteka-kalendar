@@ -3,36 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--<link rel="stylesheet" href="/static/bootstrap.min.css" />-->
 	<link rel="stylesheet" href="/static/style.css" />
 	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
     <title>Kinoteka Kalendar</title>
 </head>
 <body>
-	<h1>Program Kinoteke za {{ monthName }}.</h1>
-		<table>
-			<tr>
-				{% for header in headings %}
-				<th>{{ header }}</th>
-				{% endfor %}
-			</tr>
-			{% for row in data %}
-			<tr>
-				{% for cell in row[0:-1] %}
-					{% if loop.index == 1 and row|length == 5 %}
-					<!-- veoma lenjo, nadji nesto bolje -->
-						<td rowspan="{{row[-1]}}">{{ cell }}</td>
-					{% else %}
-						{% if row[-2] == "Uzun Mirkova" %}
-							<td class="uzun">{{ cell }}</td>
-						{% else %}
-							<td class="kosovska">{{ cell }}</td>
-						{% endif %}
-
-					{% endif %}
-				{% endfor %}
-			</tr>
-			{% endfor %}
-		</table>
+	<div class="table-container">
+		<h1 class="month-title">Program Kinoteke za {{ monthName }}.</h1>
 		<select class="absPos" onchange="location = this.value;">
 			{% for month in months%}
 				{% if month[0] == monthName %}
@@ -42,5 +20,30 @@
 				{% endif %}
 			{% endfor %}
 		</select>
+			<table>
+				<tr>
+					{% for header in headings %}
+					<th>{{ header }}</th>
+					{% endfor %}
+				</tr>
+				{% for row in data %}
+				<tr>
+					{% for cell in row[0:-1] %}
+						{% if loop.index == 1 and row|length == 5 %}
+						<!-- veoma lenjo, nadji nesto bolje -->
+							<td rowspan="{{row[-1]}}">{{ cell }}</td>
+						{% else %}
+							{% if row[-2] == "Uzun Mirkova" %}
+								<td class="uzun">{{ cell }}</td>
+							{% else %}
+								<td class="kosovska">{{ cell }}</td>
+							{% endif %}
+
+						{% endif %}
+					{% endfor %}
+				</tr>
+				{% endfor %}
+			</table>
+	</div>
 </body>
 </html>

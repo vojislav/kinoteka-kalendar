@@ -1,37 +1,113 @@
+body{
+	font-family: Arial;
+	margin:0 0 0 0;
+	height:100%;
+	color: #fff;
+	background-image: url(waves_still.png);
+	background-color: rgba(0, 125, 91);
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+}
+
 ul li {
 	display:inline;
 }
 
-body{
+.div-container {
 	text-align: center;
+	margin: 3em auto;
+	height: 300px;
+	width: 50%;
+	background-color:#222346;
+	position: relative;
+	padding: 10px 10px;
+	box-shadow: rgba(34, 35, 70, 0.47) 6px 6px;
+	//border: 1px solid #6DDAB9;
+}
+.table-container {
+	text-align: center;
+	margin: 3em auto;
+	max-width: 1000px;
+	/*background-color: rgba(34, 35, 70, 0.95);*/
+	background-color: #222346;
+	position: relative;
+	padding: 10px 10px;
+	box-shadow: rgba(34, 35, 70, 0.47) 6px 6px;
+	//border: 1px solid #6DDAB9;
+}
+
+h1.title {
+	color: white;
+	font-size: 3em;
+	font-style: italic;
+	text-align: center;
+	text-shadow: 1px 1px #6DDAB9;
+	position: relative;
+	margin: 0 auto;
+	margin-top: 10%;
+}
+
+h1.month-title{
+	color: white;
+	font-style: italic;
+	text-align: center;
+	text-shadow: 1px 1px #6DDAB9;
+	display: inline-block;
+}
+
+h4.subtitle{
+	color: white;
+	font-style: italic;
+	text-align: center;
+	text-shadow: 1px 1px #6DDAB9;
+	position: relative;
+	margin: 0px auto;
+}
+
+select.main {
+	position: relative;
+	margin: 40px auto;
+}
+
+select.absPos {
+	display: inline;
+	position: absolute;
+	top: 30px;
+	right: 20px;
+}
+
+a{
+	color: white;
+	text-decoration: none;
+}
+
+a:hover{
+	color: #6DDAB9;
 }
 
 table {
 	display: inline-block;
-	border-collapse: collapse;
 	text-align: left;
 	width: max-content;
-}
-
-select.absPos {
-	display: inline-block;
-	position: absolute;
-	margin:15px;
-}
-
-table th, td {
-	padding: 5px;
-	border: 1px solid black;
+	border-collapse: collapse;
 }
 
 td {
-	background-color: white;
+	background-color: rgba(149, 143, 209, 0.3);
+}
+
+table th, td {
+	padding: 7px;
+	border: 5px solid #222346;
 }
 
 td.uzun{
-	background-color: rgb(2,123,118, 0.3);
+	/*background-color: rgb(2,123,118, 0.3);*/
+	background-color: rgba(38, 137, 134, 0.6);
 }
 
 td.kosovska{
-	background-color: rgb(156,56,41, 0.3);
+	/*background-color: rgb(156,56,41, 0.3);*/
+	background-color: rgba(206, 146, 195, 0.5);
 }
