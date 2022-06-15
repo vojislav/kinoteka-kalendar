@@ -7,7 +7,6 @@ import sys
 #from tabulate import tabulate
 import functools
 from datetime import datetime
-from tinydb import TinyDB
 
 class Film:
     def __init__(self, time, title, country, releaseYear, location, roles, director):
@@ -34,6 +33,14 @@ class Date:
     def newFilm():
         self.filmNum += 1
 
+"""
+https://www.danubeogradu.rs/2020/12/kinoteka-repertoari-za-januar-2021/
+https://www.danubeogradu.rs/2021/01/kinoteka-repertoari-za-februar-2021/
+https://www.danubeogradu.rs/2021/02/kinoteka-repertoari-za-mart-2021/
+https://www.danubeogradu.rs/2021/04/kinoteka-repertoari-za-april-2021/
+https://www.danubeogradu.rs/2021/04/kinoteka-repertoari-za-maj-2021/
+"""
+
 def compare(film1, film2):
     return film1.time < film2.time;
 
@@ -44,14 +51,9 @@ def getKinotekaFile(url):
 
     return "kinotekafiles/" + kinotekaFile + (".html")
 
-def getDBFile(month_id):
-    return "db/" + month_id + ".json"
-
-def getData(url, kinotekaFile, dbFile):
+def getData(url, kinotekaFile):
     if not os.path.exists(kinotekaFile):
         urllib.request.urlretrieve(url, kinotekaFile)
-
-    db = TinyDB(dbFile)
 
     with open(kinotekaFile) as fp:
         soup = BeautifulSoup(fp, "lxml")
@@ -112,7 +114,7 @@ def getData(url, kinotekaFile, dbFile):
 
         if (uzunReg.search(text) != None):
             location = "Uzun Mirkova"
-        elif (kosovskaReg.search(text) != None):
+        if (kosovskaReg.search(text) != None):
             location = "Kosovska"
 
         filmMatch = filmReg.search(text)
@@ -163,11 +165,6 @@ def getData(url, kinotekaFile, dbFile):
             if (forDirector != None):
                 director = forDirector.group()
 
-            # shorten long film titles
-            maxTitleLength = 60
-            if (len(title) > maxTitleLength):
-                title = title[:maxTitleLength] + "..."
-
             newFilm = Film(time, title, country, releaseYear, location, roles, director)
             #dates[Date.numDates-1].films.append(newFilm)
             dates[monthAndDate].films.append(newFilm)
@@ -177,17 +174,14 @@ def getData(url, kinotekaFile, dbFile):
     #    for film in date.films:
     #        print("%s - %s (%s) - %s\nUloge: %s\nRezija: %s" % (film.time, film.title, film.releaseYear, film.location, film.roles, film.director))
 
-    sortedDates = sorted(dates.items(), key=lambda x : (x[1].year, x[1].monthNum, x[1].dateNum) );
+    sortedDates = sorted(dates.items(), key=lambda x : x[1].dateNum);
 
     table = [['Datum', 'Vreme', 'Naslov', 'Lokacija']]
     for datePair in sortedDates:
         date = datePair[1]
         date.films.sort(key = lambda film: datetime.strptime(film.time, '%H:%M'))
         row = []
-        dateStr = date.day + ", " + str(date.dateNum) + ". " + date.month
-        row.append(dateStr)
-
-        filmList = []
+        row.append(date.day + ", " + str(date.dateNum) + ". " + date.month)
         #dateAdded = 0
         for film in date.films:
             #if (dateAdded == 1):
@@ -197,42 +191,10 @@ def getData(url, kinotekaFile, dbFile):
             row.append(film.location)
             row.append(len(date.films))
             table.append(row)
-
-            filmList.append([film.time, film.title, film.releaseYear,
-                             film.director, film.location])
-            #dateAdded = 1
+            dateAdded = 1
             row = []
-        if (filmList):
-            newDoc = dict({dateStr: filmList})
-            db.insert(newDoc)
 
     return table
-
-def readFromDB(dbFile):
-    table = [['Datum', 'Vreme', 'Naslov', 'Lokacija']]
-    db = TinyDB(dbFile)
-
-    for day in db.all():
-        row = []
-        dateStr = list(day.keys())[0]
-        row.append(dateStr)
-
-        films = list(day.values())[0]
-        for film in films:
-            filmTime = film[0]
-            filmTitle = film[1]
-            filmReleaseYear = film[2]
-            filmDirector = film[3]
-            filmLocation = film[4]
-            titleStr = filmTitle + " (" + filmReleaseYear + ") (dir. " + filmDirector + ")"
-            row.append(filmTime)
-            row.append(titleStr)
-            row.append(filmLocation)
-            row.append(len(films))
-            table.append(row)
-            row = []
-
-    return table;
 
 #url = "https://www.danubeogradu.rs/2021/05/kinoteka-repertoari-za-jun-2021/"
 #kinotekaFile = getKinotekaFile(url)

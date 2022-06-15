@@ -10,40 +10,44 @@
 </head>
 <body>
 	<div class="table-container">
-		<h1 class="month-title">Program Kinoteke za {{ monthName }}.</h1>
+
 		<select class="absPos" onchange="location = this.value;">
-			{% for month in months%}
-				{% if month[0] == monthName %}
-					<option value="/{{ month[1] }}" selected>{{ month[0] }}</option>
-				{% else %}
+			<option hidden disabled selected value>Izaberi mesec</option>
+			{% for year in calendars.keys()  %}
+			<optgroup label="{{ year  }}">
+				{% for month in calendars[year] %}
 					<option value="/{{ month[1] }}">{{ month[0] }}</option>
-				{% endif %}
+				{% endfor %}
+			</optgroup>
 			{% endfor %}
 		</select>
-			<table>
-				<tr>
-					{% for header in headings %}
-					<th>{{ header }}</th>
-					{% endfor %}
-				</tr>
-				{% for row in data %}
-				<tr>
-					{% for cell in row[0:-1] %}
-						{% if loop.index == 1 and row|length == 5 %}
-						<!-- veoma lenjo, nadji nesto bolje -->
-							<td rowspan="{{row[-1]}}">{{ cell }}</td>
-						{% else %}
-							{% if row[-2] == "Uzun Mirkova" %}
-								<td class="uzun">{{ cell }}</td>
-							{% else %}
-								<td class="kosovska">{{ cell }}</td>
-							{% endif %}
 
-						{% endif %}
-					{% endfor %}
-				</tr>
+		<h1 class="month-title">Program Kinoteke za {{ monthName }}.</h1>
+
+		<table>
+			<tr>
+				{% for header in headings %}
+				<th>{{ header }}</th>
 				{% endfor %}
-			</table>
+			</tr>
+			{% for row in data %}
+			<tr>
+				{% for cell in row[0:-1] %}
+					{% if loop.index == 1 and row|length == 5 %}
+					<!-- veoma lenjo, nadji nesto bolje -->
+						<td rowspan="{{row[-1]}}">{{ cell }}</td>
+					{% else %}
+						{% if row[-2] == "Uzun Mirkova" %}
+							<td class="uzun">{{ cell }}</td>
+						{% else %}
+							<td class="kosovska">{{ cell }}</td>
+						{% endif %}
+
+					{% endif %}
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		</table>
 	</div>
 </body>
 </html>

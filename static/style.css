@@ -1,5 +1,29 @@
+@font-face {
+	font-family: ArimoFont;
+	src: url(fonts/Arimo-Regular.ttf);
+}
+
+@font-face {
+	font-family: ArimoFont;
+	src: url(fonts/Arimo-Bold.ttf);
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: ArimoFont;
+	src: url(fonts/Arimo-Italic.ttf);
+	font-style: italic;
+}
+
+@font-face {
+	font-family: ArimoFont;
+	src: url(fonts/Arimo-BoldItalic.ttf);
+	font-weight: bold;
+	font-style: italic;
+}
+
 body{
-	font-family: Arial;
+	font-family: ArimoFont;
 	margin:0 0 0 0;
 	height:100%;
 	color: #fff;
@@ -23,7 +47,7 @@ ul li {
 	position: relative;
 	padding: 10px 10px;
 	box-shadow: rgba(34, 35, 70, 0.47) 6px 6px;
-	//border: 1px solid #6DDAB9;
+	/*border: 1px solid #6DDAB9;*/
 }
 .table-container {
 	text-align: center;
@@ -34,7 +58,7 @@ ul li {
 	position: relative;
 	padding: 10px 10px;
 	box-shadow: rgba(34, 35, 70, 0.47) 6px 6px;
-	//border: 1px solid #6DDAB9;
+	/*border: 1px solid #6DDAB9;*/
 }
 
 h1.title {
@@ -89,7 +113,7 @@ a:hover{
 table {
 	display: inline-block;
 	text-align: left;
-	width: max-content;
+	width: fit-content;
 	border-collapse: collapse;
 }
 
@@ -110,4 +134,35 @@ td.uzun{
 td.kosovska{
 	/*background-color: rgb(156,56,41, 0.3);*/
 	background-color: rgba(206, 146, 195, 0.5);
+}
+
+
+@media only screen and (max-width: 800px) {
+	html {
+		font-size: 12px;
+	}
+
+	select.absPos {
+		position: relative;
+		margin: auto;
+		display: block;
+		top: 0px;
+		right: 0px;
+	}
+
+	h1.month-title {
+		display: block;
+	}
+
+	table {
+		width: fit-content;
+	}
+
+	div.div-container{
+		width: 90%;
+	}
+
+	div.table-container{
+		padding: 10px 5px;
+	}
 }
