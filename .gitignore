@@ -1,0 +1,8 @@
+### Flask.Python Stack ###
+# Byte-compiled / optimized / DLL files
+__pycache__/
+db/
+kinotekafiles/
+functions_pdf.py
+*.pyc
+*$py.class

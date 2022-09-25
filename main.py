@@ -9,9 +9,11 @@ from functions import getKinotekaFile, getDBFile, getData, readFromDB
 from tinydb import TinyDB
 
 app = Flask(__name__)
-
 calendars =  {
     "2022": [
+        ["Septembar 2022", "septembar2022", "https://www.danubeogradu.rs/2022/08/kinoteka-repertoari-za-septembar-2022/"],
+        ["Avgust 2022", "avgust2022", "https://www.danubeogradu.rs/2022/07/kinoteka-repertoari-za-avgust-2022/"],
+        ["Jul 2022", "jul2022", "https://www.danubeogradu.rs/2022/06/kinoteka-repertoari-za-jul-2022/"],
         ["Jun 2022", "jun2022", "https://www.danubeogradu.rs/2022/05/kinoteka-repertoari-za-jun-2022/"],
         ["Maj 2022", "maj2022", "https://www.danubeogradu.rs/2022/04/kinoteka-repertoari-za-maj-2022/"],
         ["April 2022", "april2022", "https://www.danubeogradu.rs/2022/03/kinoteka-repertoari-za-april-2022/"],

@@ -24,10 +24,11 @@
 
 body{
 	font-family: ArimoFont;
+	font-size: 0.95em;
 	margin:0 0 0 0;
 	height:100%;
 	color: #fff;
-	background-image: url(waves_still.png);
+	background-image: url(waves4_smallest.gif);
 	background-color: rgba(0, 125, 91);
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
@@ -113,7 +114,7 @@ a:hover{
 table {
 	display: inline-block;
 	text-align: left;
-	width: fit-content;
+	width: max-content;
 	border-collapse: collapse;
 }
 
@@ -138,10 +139,6 @@ td.kosovska{
 
 
 @media only screen and (max-width: 800px) {
-	html {
-		font-size: 12px;
-	}
-
 	select.absPos {
 		position: relative;
 		margin: auto;
@@ -155,6 +152,7 @@ td.kosovska{
 	}
 
 	table {
+		font-size: 12px;
 		width: fit-content;
 	}
 
