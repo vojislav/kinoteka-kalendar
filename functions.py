@@ -47,6 +47,9 @@ def getKinotekaFile(url):
 def getDBFile(month_id):
     return "db/" + month_id + ".json"
 
+badTitles = ["dokumentarni film", "dugometražni dokumentarni film", "dugometražni dokumentarni", "kratki igrani film", "igrano-dokumenarni film",
+             "Muzički dokumentarni film", "dokumenarni film"]
+
 def getData(url, kinotekaFile, dbFile):
     if not os.path.exists(kinotekaFile):
         urllib.request.urlretrieve(url, kinotekaFile)
@@ -139,24 +142,28 @@ def getData(url, kinotekaFile, dbFile):
 
             country = countryReg.search(parantheses).group().replace("/", "").replace(",", "")
 
+            releaseYear = ""
             if releaseYearReg.search(parantheses) != None:
                 releaseYear = releaseYearReg.search(parantheses).group()
 
             originalTitle = originalTitleReg.search(text)
 
-            if (originalTitle != None and rolesReg.search(originalTitle.group()) == None and serbDirectorReg.search(originalTitle.group()) == None):
-                title = originalTitle.group()
+            if (originalTitle != None and
+                    rolesReg.search(originalTitle.group()) == None and
+                    serbDirectorReg.search(originalTitle.group()) == None and
+                    originalTitle.group() not in badTitles):
+                    title = originalTitle.group()
 
             roles = rolesReg.search(text)
             if roles != None:
                 roles = roles.group()
 
-            director = serbDirectorReg.search(text)
-            if (director == None):
+            director = ""
+            if (serbDirectorReg.search(text) == None):
                 if (serbDirectorReg2.search(text) != None):
                     director = serbDirectorReg2.search(text).group()
             else:
-                director = director.group()
+                director = serbDirectorReg.search(text).group()
 
             if (director):
                 forDirector = forDirectorReg.search(director)
