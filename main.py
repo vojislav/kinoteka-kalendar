@@ -85,11 +85,12 @@ def month(month_id):
         table = getData(url, kinotekaFile, dbFile)
 
     headings = table[0]
-    data = []
-    for row in table[1:]:
-        data.append(row)
+    # data = []
+    data = table[1:]
+    # for row in table[1:]:
+    #     data.append(row)
 
-    return render_template("table.html", headings=table[0], data=data,
+    return render_template("table.html", headings=headings, data=data,
                                          calendars=calendars, monthName=month[0],
                                          currentMonth=month[1], year = year)
 

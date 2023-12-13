@@ -8,9 +8,10 @@ import sys
 import functools
 from datetime import datetime
 from tinydb import TinyDB
+import json
 
 class Film:
-    def __init__(self, time, title, country, releaseYear, location, roles, director):
+    def __init__(self, time, title, country, releaseYear, location, roles, director, tmdb_id):
         self.time = time
         self.title = title
         self.country = country
@@ -18,6 +19,7 @@ class Film:
         self.location = location
         self.roles = roles
         self.director = director
+        self.tmdb_id = tmdb_id
 
 class Date:
     numDates = 0
@@ -51,6 +53,22 @@ badTitles = ["dokumentarni film", "dugometražni dokumentarni film", "dugometra�
 			 "kratki igrani film", "igrano-dokumenarni film", "Muzički dokumentarni film", 
 			 "dokumenarni film", "dokumentarni fulm", "Projekcija restaurisane kopije filma", 
 			 "(Restaurisana kopija filma)", "dokumenarno-igrani film", "dugometražni animirani"]
+
+def getTMDBID(title, year):
+    url = "https://api.themoviedb.org/3/search/movie?"
+    params = {"query": title,
+              "year": year,
+              "include_adult": "false",
+              "api_key": "00710da794dddf1fe6fce8c165a3c178"}
+    
+    full_url = url + urllib.parse.urlencode(params)
+
+    with urllib.request.urlopen(full_url) as res:
+        jsonRes = json.loads(res.read())
+        if (len(jsonRes["results"]) == 0):
+            return -1
+        else:
+            return jsonRes['results'][0]["id"]
 
 def getData(url, kinotekaFile, dbFile):
     if not os.path.exists(kinotekaFile):
@@ -172,12 +190,14 @@ def getData(url, kinotekaFile, dbFile):
             if (forDirector != None):
                 director = forDirector.group()
 
+            tmdb_id = getTMDBID(title, releaseYear)
+
             # shorten long film titles
             maxTitleLength = 60
             if (len(title) > maxTitleLength):
                 title = title[:maxTitleLength] + "..."
 
-            newFilm = Film(time, title, country, releaseYear, location, roles, director)
+            newFilm = Film(time, title, country, releaseYear, location, roles, director, tmdb_id)
             #dates[Date.numDates-1].films.append(newFilm)
             dates[monthAndDate].films.append(newFilm)
 
@@ -205,10 +225,11 @@ def getData(url, kinotekaFile, dbFile):
             row.append(film.title + " (" + film.releaseYear + ") (dir. " + film.director + ")")
             row.append(film.location)
             row.append(len(date.films))
+            row.append(film.tmdb_id)
             table.append(row)
 
             filmList.append([film.time, film.title, film.releaseYear,
-                             film.director, film.location])
+                             film.director, film.location, film.tmdb_id])
             #dateAdded = 1
             row = []
         if (filmList):
@@ -233,15 +254,17 @@ def readFromDB(dbFile):
             filmReleaseYear = film[2]
             filmDirector = film[3]
             filmLocation = film[4]
+            filmID = film[5]
             titleStr = filmTitle + " (" + filmReleaseYear + ") (dir. " + filmDirector + ")"
             row.append(filmTime)
             row.append(titleStr)
             row.append(filmLocation)
             row.append(len(films))
+            row.append(filmID)
             table.append(row)
             row = []
 
-    return table;
+    return table
 
 #url = "https://www.danubeogradu.rs/2021/05/kinoteka-repertoari-za-jun-2021/"
 #kinotekaFile = getKinotekaFile(url)

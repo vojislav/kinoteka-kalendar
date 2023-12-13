@@ -137,6 +137,10 @@ td.kosovska{
 	background-color: rgba(206, 146, 195, 0.5);
 }
 
+.announcement {
+	margin: 0px;
+}
+
 span.flake {
 	position: absolute; padding: 0; margin: 0;
 }
@@ -144,6 +148,7 @@ span.flake {
 span.flake::before {
 	content: '*';
 }
+
 
 @media only screen and (max-width: 800px) {
 	select.absPos {
