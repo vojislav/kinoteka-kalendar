@@ -47,10 +47,10 @@ def getKinotekaFile(url):
 def getDBFile(month_id):
     return "db/" + month_id + ".json"
 
-badTitles = ["dokumentarni film", "dugometražni dokumentarni film", "dugometražni dokumentarni", 
-			 "kratki igrani film", "igrano-dokumenarni film", "Muzički dokumentarni film", 
-			 "dokumenarni film", "dokumentarni fulm", "Projekcija restaurisane kopije filma", 
-			 "(Restaurisana kopija filma)", "dokumenarno-igrani film", "dugometražni animirani"]
+badTitles = ["dokumentarni film", "dugometražni dokumentarni film", "dugometražni dokumentarni",
+             "kratki igrani film", "igrano-dokumenarni film", "Muzički dokumentarni film",
+             "dokumenarni film", "dokumentarni fulm", "Projekcija restaurisane kopije filma",
+             "(Restaurisana kopija filma)", "dokumenarno-igrani film", "dugometražni animirani"]
 
 def getData(url, kinotekaFile, dbFile):
     if not os.path.exists(kinotekaFile):
