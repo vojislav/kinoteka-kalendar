@@ -21,6 +21,7 @@ cache = Cache(app)
 
 calendars =  {
     "2023": [
+        ["Decembar 2023", "decembar2023", "https://www.danubeogradu.rs/2023/12/kinoteka-repertoari-za-decembar-2023/"],
         ["Novembar 2023", "novembar2023", "https://www.danubeogradu.rs/2023/10/kinoteka-repertoari-za-novembar-2023/"],
         ["Oktobar 2023", "oktobar2023", "https://www.danubeogradu.rs/2023/09/kinoteka-repertoari-za-oktobar-2023/"],
         ["Septembar 2023", "septembar2023", "https://www.danubeogradu.rs/2023/08/kinoteka-repertoari-za-septembar-2023/"],
@@ -84,11 +85,12 @@ def month(month_id):
         table = getData(url, kinotekaFile, dbFile)
 
     headings = table[0]
-    data = []
-    for row in table[1:]:
-        data.append(row)
+    # data = []
+    data = table[1:]
+    # for row in table[1:]:
+    #     data.append(row)
 
-    return render_template("table.html", headings=table[0], data=data,
+    return render_template("table.html", headings=headings, data=data,
                                          calendars=calendars, monthName=month[0],
                                          currentMonth=month[1], year = year)
 

@@ -6,7 +6,7 @@
 	<!--<link rel="stylesheet" href="/static/bootstrap.min.css" />-->
 	<link rel="stylesheet" href="/static/style.css" />
 	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
-	<!--<script src="/static/snow.js"></script>-->
+	<script src="/static/snow.js"></script>
     <title>Kinoteka Kalendar</title>
 </head>
 <body>
@@ -24,6 +24,7 @@
 		</select>
 
 		<h1 class="month-title">Program Kinoteke za {{ monthName }}.</h1>
+		<h4 class="announcement">NOVO: Kliknite na naslov filma za više informacija</h4>
 
 		<table>
 			<tr>
@@ -33,17 +34,23 @@
 			</tr>
 			{% for row in data %}
 			<tr>
-				{% for cell in row[0:-1] %}
-					{% if loop.index == 1 and row|length == 5 %}
+				{% for cell in row[:-2] %}
+					{% if loop.index == 1 and row|length == 6 %}
 					<!-- veoma lenjo, nadji nesto bolje -->
-						<td rowspan="{{row[-1]}}">{{ cell }}</td>
+						<td rowspan="{{row[-2]}}">{{ cell }}</td>
 					{% else %}
-						{% if row[-2] == "Uzun Mirkova" %}
-							<td class="uzun">{{ cell }}</td>
+						{% if row[-3] == "Uzun Mirkova" %}
+						{% set location="uzun" %}
 						{% else %}
-							<td class="kosovska">{{ cell }}</td>
+						{% set location="kosovska" %}
 						{% endif %}
-
+						<td class="{{ location }}">
+							{% if row|length - loop.index == 3 and row[-1] != -1 %}
+							<a href="http://letterboxd.com/tmdb/{{row[-1]}}" target="_blank" rel="noopener noreferrer">{{cell}}</a>
+							{% else %}
+							{{ cell }}
+							{% endif %}
+						</td>
 					{% endif %}
 				{% endfor %}
 			</tr>
