@@ -20,6 +20,9 @@ app.config.from_mapping(config)
 cache = Cache(app)
 
 calendars =  {
+    "2024": [
+        ["Januar 2024", "januar2024", "https://www.danubeogradu.rs/2023/12/kinoteka-repertoari-za-januar-2024"]
+	],
     "2023": [
         ["Decembar 2023", "decembar2023", "https://www.danubeogradu.rs/2023/12/kinoteka-repertoari-za-decembar-2023/"],
         ["Novembar 2023", "novembar2023", "https://www.danubeogradu.rs/2023/10/kinoteka-repertoari-za-novembar-2023/"],
@@ -72,10 +75,15 @@ def index():
 @app.route("/<string:month_id>")
 def month(month_id):
     year = month_id[-4:]
+    try:
+        int(year)
+    except ValueError:
+        return
+	
     for month in calendars[year]:
         if (month[1] == month_id):
             url = month[2]
-            break;
+            break
     kinotekaFile = getKinotekaFile(url)
     dbFile = getDBFile(month_id)
 

@@ -52,7 +52,9 @@ def getDBFile(month_id):
 badTitles = ["dokumentarni film", "dugometražni dokumentarni film", "dugometražni dokumentarni", 
 			 "kratki igrani film", "igrano-dokumenarni film", "Muzički dokumentarni film", 
 			 "dokumenarni film", "dokumentarni fulm", "Projekcija restaurisane kopije filma", 
-			 "(Restaurisana kopija filma)", "dokumenarno-igrani film", "dugometražni animirani"]
+			 "(Restaurisana kopija filma)", "dokumenarno-igrani film", "dugometražni animirani",
+			 "dokumentarni tv film", "Premijera dokumentarnog filma", "Restaurirana verzija",
+			 "dugometražni animirani film", "kratki film"]
 
 def getTMDBID(title, year):
     url = "https://api.themoviedb.org/3/search/movie?"
