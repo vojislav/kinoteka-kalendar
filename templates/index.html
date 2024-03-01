@@ -28,8 +28,10 @@
 			<option hidden disabled selected value>Izaberi mesec</option>
 			{% for year in calendars.keys()  %}
 			<optgroup label="{{ year  }}">
-				{% for month in calendars[year] %}
-				<option value="/{{ month[1] }}">{{ month[0] }}</option>
+				{% for month in calendars[year].keys() %}
+				{% set month_id = month.lower() + year %}
+				{% set month_text = month + " " + year %}
+				<option value="/{{ month_id }}">{{ month_text }}</option>
 				{% endfor %}
 			</optgroup>
 			{% endfor %}

@@ -15,9 +15,15 @@
 		<select class="absPos" onchange="location = this.value;">
 			<option hidden disabled selected value>Izaberi mesec</option>
 			{% for year in calendars.keys()  %}
-			<optgroup label="{{ year  }}">
-				{% for month in calendars[year] %}
-					<option value="/{{ month[1] }}">{{ month[0] }}</option>
+			<optgroup label="{{ year }}">
+				{% for month in calendars[year].keys() %}
+					{% set month_id = month.lower() + year %}
+					{% set month_text = month + " " + year %}
+					{% if month_id == currentMonth %}
+						<option value="/{{ month_id }}" selected>{{ month_text  }}</option>
+					{% else %}
+						<option value="/{{ month_id }}">{{ month_text }}</option>
+					{% endif %}
 				{% endfor %}
 			</optgroup>
 			{% endfor %}

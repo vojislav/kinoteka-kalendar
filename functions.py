@@ -49,14 +49,14 @@ def getKinotekaFile(url):
 def getDBFile(month_id):
     return "db/" + month_id + ".json"
 
-badTitles = ["dokumentarni film", "dugometražni dokumentarni film", "dugometražni dokumentarni", 
-			 "kratki igrani film", "igrano-dokumenarni film", "Muzički dokumentarni film", 
-			 "dokumenarni film", "dokumentarni fulm", "Projekcija restaurisane kopije filma", 
-			 "(Restaurisana kopija filma)", "dokumenarno-igrani film", "dugometražni animirani",
-			 "dokumentarni tv film", "Premijera dokumentarnog filma", "Restaurirana verzija",
-			 "dugometražni animirani film", "kratki film", "dokumentarni film / besplatna projekcija",
-			 "Besplatne projekcije restaurisane verzije filma", "kratki dokumentarni film", 
-			 "restaurisana verzija"]
+badTitles = ["dokumentarni film", "dugometražni dokumentarni film", "dugometražni dokumentarni",
+             "kratki igrani film", "igrano-dokumenarni film", "Muzički dokumentarni film",
+             "dokumenarni film", "dokumentarni fulm", "Projekcija restaurisane kopije filma",
+             "(Restaurisana kopija filma)", "dokumenarno-igrani film", "dugometražni animirani",
+             "dokumentarni tv film", "Premijera dokumentarnog filma", "Restaurirana verzija",
+             "dugometražni animirani film", "kratki film", "dokumentarni film / besplatna projekcija",
+             "Besplatne projekcije restaurisane verzije filma", "kratki dokumentarni film",
+             "restaurisana verzija"]
 
 def getTMDBID(title, year):
     url = "https://api.themoviedb.org/3/search/movie?"
@@ -64,7 +64,7 @@ def getTMDBID(title, year):
               "year": year,
               "include_adult": "false",
               "api_key": "00710da794dddf1fe6fce8c165a3c178"}
-    
+
     full_url = url + urllib.parse.urlencode(params)
 
     with urllib.request.urlopen(full_url) as res:
