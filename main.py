@@ -21,6 +21,8 @@ cache = Cache(app)
 
 calendars =  {
     "2024": [
+        ["Mart 2024", "mart2024", "https://www.danubeogradu.rs/2024/02/kinoteka-repertoari-za-mart-2024/"],
+        ["Februar 2024", "februar2024", "https://www.danubeogradu.rs/2024/01/kinoteka-repertoari-za-februar-2024/"],
         ["Januar 2024", "januar2024", "https://www.danubeogradu.rs/2023/12/kinoteka-repertoari-za-januar-2024"]
 	],
     "2023": [
