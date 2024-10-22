@@ -7,26 +7,25 @@
 	<link rel="stylesheet" href="/static/style.css" />
 	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" />
 	<!--<script src="/static/snow.js"></script>-->
-    <title>Kinoteka Kalendar</title>
+    <title>{{- monthName }} | Kinoteka Kalendar</title>
 </head>
 <body>
 	<div class="table-container">
-
 		<select class="absPos" onchange="location = this.value;">
 			<option hidden disabled selected value>Izaberi mesec</option>
-			{% for year in calendars.keys()  %}
+			{%- for year in calendars.keys() -%}
 			<optgroup label="{{ year }}">
-				{% for month in calendars[year].keys() %}
-					{% set month_id = month.lower() + year %}
-					{% set month_text = month + " " + year %}
-					{% if month_id == currentMonth %}
-						<option value="/{{ month_id }}" selected>{{ month_text  }}</option>
-					{% else %}
-						<option value="/{{ month_id }}">{{ month_text }}</option>
-					{% endif %}
-				{% endfor %}
+				{%- for month in calendars[year].keys() -%}
+					{%- set month_id = month.lower() + year -%}
+					{%- set month_text = month + " " + year -%}
+					{%- if month_id == currentMonth -%}
+						<option value="/{{ month_id }}" selected>{{- month_text -}}</option>
+					{%- else -%}
+						<option value="/{{ month_id }}">{{- month_text -}}</option>
+					{%- endif -%}
+				{%- endfor -%}
 			</optgroup>
-			{% endfor %}
+			{%- endfor -%}
 		</select>
 
 		<h1 class="month-title">Program Kinoteke za {{ monthName }}.</h1>
@@ -34,33 +33,32 @@
 
 		<table>
 			<tr>
-				{% for header in headings %}
+				{%- for header in headings -%}
 				<th>{{ header }}</th>
-				{% endfor %}
+				{%- endfor -%}
 			</tr>
-			{% for row in data %}
+			{%- for row in data -%}
 			<tr>
-				{% for cell in row[:-2] %}
-					{% if loop.index == 1 and row|length == 6 %}
-					<!-- veoma lenjo, nadji nesto bolje -->
-						<td rowspan="{{row[-2]}}">{{ cell }}</td>
-					{% else %}
-						{% if row[-3] == "Uzun Mirkova" %}
-						{% set location="uzun" %}
-						{% else %}
-						{% set location="kosovska" %}
-						{% endif %}
+				{%- for cell in row[:-2] -%}
+					{%- if loop.index == 1 and row|length == 6 -%}
+						<td rowspan="{{row[-2]}}">{{- cell -}}</td>
+					{%- else -%}
+						{%- if row[-3] == "Uzun Mirkova" -%}
+						{%- set location="uzun" -%}
+						{%- else -%}
+						{%- set location="kosovska" -%}
+						{%- endif -%}
 						<td class="{{ location }}">
-							{% if row|length - loop.index == 3 and row[-1] != -1 %}
-							<a href="https://letterboxd.com/tmdb/{{row[-1]}}">{{cell}}</a>
-							{% else %}
-							{{ cell }}
-							{% endif %}
+							{%- if row|length - loop.index == 3 and row[-1] != -1 -%}
+							<a href="https://letterboxd.com/tmdb/{{row[-1]}}">{{- cell -}}</a>
+							{%- else -%}
+							{{- cell -}}
+							{%- endif -%}
 						</td>
-					{% endif %}
-				{% endfor %}
+					{%- endif -%}
+				{%- endfor -%}
 			</tr>
-			{% endfor %}
+			{%- endfor -%}
 		</table>
 	</div>
 </body>

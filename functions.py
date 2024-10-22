@@ -56,7 +56,8 @@ badTitles = ["dokumentarni film", "dugometražni dokumentarni film", "dugometra�
              "dokumentarni tv film", "Premijera dokumentarnog filma", "Restaurirana verzija",
              "dugometražni animirani film", "kratki film", "dokumentarni film / besplatna projekcija",
              "Besplatne projekcije restaurisane verzije filma", "kratki dokumentarni film",
-             "restaurisana verzija"]
+             "restaurisana verzija", "(Titlovi na ruskom)", "dokumentarna serija", "igrano-dokumentarni film",
+			 "muzički dokumentarni film"]
 
 def getTMDBID(title, year):
     url = "https://api.themoviedb.org/3/search/movie?"
@@ -196,11 +197,6 @@ def getData(url, kinotekaFile, dbFile):
 
             tmdb_id = getTMDBID(title, releaseYear)
 
-            # shorten long film titles
-            maxTitleLength = 60
-            if (len(title) > maxTitleLength):
-                title = title[:maxTitleLength] + "..."
-
             newFilm = Film(time, title, country, releaseYear, location, roles, director, tmdb_id)
             #dates[Date.numDates-1].films.append(newFilm)
             dates[monthAndDate].films.append(newFilm)
@@ -226,6 +222,10 @@ def getData(url, kinotekaFile, dbFile):
             #if (dateAdded == 1):
             #    row.append("")
             row.append(film.time)
+            # shorten long film titles
+            maxTitleLength = 40
+            if (len(film.title) > maxTitleLength):
+                film.title = film.title[:maxTitleLength] + "..."
             row.append(film.title + " (" + film.releaseYear + ") (dir. " + film.director + ")")
             row.append(film.location)
             row.append(len(date.films))
